@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block diagramContent %}
+	<table border="0">
+	{% for title, photoID, mediumURL, description in diagramContent %}
+		<tr><td><h2>{{ title }}</h2></td></tr>
+		<tr><td><a href="/{{ title|slugify }}/{{ photoID }}"><img border="0" src="{{ mediumURL }}"></a></td></tr>
+		<tr><td>{{ description|safe }}</td></tr>
+		<tr><td><br><br></td></tr>
+	{% endfor %}
+	</table>
+{% endblock diagramContent %}

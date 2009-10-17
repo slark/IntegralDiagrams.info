@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block textContent %}
+	<table border="0">
+		<tr>
+			<td valign="top" rowspan="4"><b>Integral Diagrams statistics:</b></td>
+			<td align="right">{{ numDiagrams }}</td>
+			<td align="left">diagrams</td>
+		</tr>
+		<tr>
+			<td align="right">{{ numSubjects }}</td>
+			<td align="left">subjects</td>
+		</tr>
+		<tr>
+			<td align="right">{{ numAuthors }}</td>
+			<td align="left">authors</td>
+		</tr>
+		<tr>
+			<td align="right">53</td>
+			<td align="left">sources</td>
+		</tr>
+	</table>
+{% endblock textContent %}
+
+{% block diagramHeader %}{% block diagramFooter %}
+	<h2>all diagrams</h2>
+	<p>
+		{% for page in allNumberPages %}
+			{% ifequal page allPageNum %}
+				<b>page&nbsp;{{ page }}</b>&nbsp;
+			{% else %}
+				<a href="/all-diagrams/page-{{ page }}">page&nbsp;{{ page }}</a>&nbsp;
+			{% endifequal %}
+		{% endfor %}
+	</p>
+{% endblock diagramFooter %}{% endblock diagramHeader %}
+{% block diagramContent %}
+	{% for title, photoID, thumbURL in diagramContent %}
+		<a href="/{{ title|slugify }}/{{ photoID }}"><img border="0" src="{{ thumbURL }}" title="{{ title }}"></a>
+	{% endfor %}
+{% endblock diagramContent %}

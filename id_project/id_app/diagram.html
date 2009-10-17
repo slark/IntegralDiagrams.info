@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block textContent %}
+	<p>
+	{% for subjectID, subjectTitle in subjectList %}
+		<a href="/subjects/{{ subjectTitle|slugify }}/{{ subjectID }}/thumbnails"><b>subjects&nbsp;&rarr;&nbsp;{{ subjectTitle }}</b></a><br>
+	{%  endfor %}
+	</p>
+	<p>
+	{% for authorID, authorTitle in authorList %}
+		<a href="/authors/{{ authorTitle|slugify }}/{{ authorID }}/thumbnails"><b>authors&nbsp;&rarr;&nbsp;{{ authorTitle }}</b></a><br>
+	{%  endfor %}
+	</p>
+	<p><a href="http://www.flickr.com/photos/slark/{{ photoID }}">diagram on Flickr</a></p>
+{% endblock textContent %}
+
+{% block diagramHeader %}
+	<h2>{{ title }}</h2>
+{% endblock diagramHeader %}
+
+{% block diagramContent %}
+	<table border="0">
+	<tr><td><img border="0" src="{{ diagramContent }}"></td></tr>
+	<tr><td>{{ description|safe }}</td></tr>
+	</table>
+{% endblock diagramContent %}

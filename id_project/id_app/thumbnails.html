@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+
+{% block diagramContent %}
+	{% for title, photoID, thumbURL in diagramContent %}
+		<a href="/{{ title|slugify }}/{{ photoID }}"><img border="0" src="{{ thumbURL }}" title="{{ title }}"><a>
+	{% endfor %}
+{% endblock diagramContent %}

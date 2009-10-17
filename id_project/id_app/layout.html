@@ -1,0 +1,99 @@
+<html>
+<head>
+	{% if homePage %}
+		<title>IntegralDiagrams.info</title>
+	{% else %}
+		<title>IntegralDiagrams.info&nbsp;&rarr;&nbsp;{{ pageTitle|safe }}</title>
+	{% endif %}
+	<style type="text/css">
+		body {
+		font-size:100%;
+		background-color:white;
+		}
+		h2, h3, b, p, a, td {
+		font-family:Helvetica, Arial, Verdana, Sans-serif;
+		color:black;
+		font-size:1em;
+		}
+		h2 {font-size:1.875em}
+		h3 {font-size:1.1em}
+		a:link {text-decoration:none}
+		a:visited {text-decoration:none}
+		a:hover {text-decoration:underline}
+		a:active {text-decoration:underline}
+	</style>
+</head>
+<body>
+  <!--[if lt IE 7]>
+  <div style='border: 1px solid #F7941D; background: #FEEFDA; text-align: center; clear: both; height: 75px; position: relative;'>
+    <div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none"; return false;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-cornerx.jpg' style='border: none;' alt='Close this notice'/></a></div>
+    <div style='width: 640px; margin: 0 auto; text-align: left; padding: 0; overflow: hidden; color: black;'>
+      <div style='width: 75px; float: left;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-warning.jpg' alt='Warning!'/></div>
+      <div style='width: 275px; float: left; font-family: Arial, sans-serif;'>
+        <div style='font-size: 14px; font-weight: bold; margin-top: 12px;'>You are using an outdated browser</div>
+        <div style='font-size: 12px; margin-top: 6px; line-height: 12px;'>For a better experience using this site, please upgrade to a modern web browser.</div>
+      </div>
+      <div style='width: 75px; float: left;'><a href='http://www.firefox.com' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-firefox.jpg' style='border: none;' alt='Get Firefox 3.5'/></a></div>
+      <div style='width: 75px; float: left;'><a href='http://www.browserforthebetter.com/download.html' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-ie8.jpg' style='border: none;' alt='Get Internet Explorer 8'/></a></div>
+      <div style='width: 73px; float: left;'><a href='http://www.apple.com/safari/download/' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-safari.jpg' style='border: none;' alt='Get Safari 4'/></a></div>
+      <div style='float: left;'><a href='http://www.google.com/chrome' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-chrome.jpg' style='border: none;' alt='Get Google Chrome'/></a></div>
+    </div>
+  </div>
+  <![endif]-->
+	<table border="0">
+		<tr>
+			<td width="300" align="left" valign="top">
+			<a href="/"><h2>IntegralDiagrams.info</h2></a>
+			<p>{% for link in navBar %}
+					{% ifequal link navLink %}
+						<b>{{ link }}</b>&nbsp;
+					{% else %}
+						{% if homePage %}
+							<a style="color:red" href="/{{ link }}">{{ link }}</a>&nbsp;
+						{% else %}
+							<a href="/{{ link }}">{{ link }}</a>&nbsp;
+						{% endif %}
+					{% endifequal %}
+				{% endfor %}
+			</p>
+				{% block listContent %}
+					{% for ID, title in listContent %}
+						{% ifequal title setTitle %}
+							<b>{{ title }}</b><br>
+						{% else %}
+							<a href="/{{ navLink }}/{{ title|slugify }}/{{ ID }}/{{ setNavLink }}">{{ title }}</a><br>
+						{% endifequal %}
+
+					{% endfor %}
+					{% if listContent %}
+						<br><a href="/all-diagrams/page-1">all diagrams</a>
+					{% endif %}
+				{% endblock listContent %}
+				{% block textContent %}{% endblock %}
+			</td>
+			<td align="left" valign="top">
+			{% block diagramHeader %}
+				{% if setTitle %}
+					<h2>{{ navLink }}&nbsp;&rarr;&nbsp;{{ setTitle }}</h2>
+				{% endif %}
+				<p>
+					{% for link in setNavBar %}
+						{% ifequal link setNavLink %}
+							<b>{{ link }}</b>&nbsp;
+						{% else %}
+							<a href="/{{ navLink }}/{{ setTitle|slugify }}/{{ setID }}/{{ link }}">{{ link }}</a>&nbsp;
+						{% endifequal %}
+					{% endfor %}
+				</p>
+			{% endblock diagramHeader %}
+			{% if not diagramContent %}
+				<img src="http://farm3.static.flickr.com/2462/3896110342_5cc3f1a6cc_o.jpg" border="0">
+			{% else %}
+				{% block diagramContent %}{% endblock %}
+			{% endif %}
+			{% block diagramFooter %}{% endblock %}
+			</td>
+		</tr>
+	</table>
+{% block footer %}{% endblock %}
+</body></html>
